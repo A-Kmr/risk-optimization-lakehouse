@@ -6,7 +6,8 @@ End-to-end credit risk engine on Databricks using the Medallion Architecture (Br
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow) ![Platform](https://img.shields.io/badge/Platform-Databricks-orange) ![Language](https://img.shields.io/badge/Language-Python%20%7C%20PySpark-blue)
 
 > **🚧 Project currently being uploaded. Full code and documentation coming soon.**
-
+> **🚀 Project Status:** Bronze and Silver layers are complete. Modeling (Gold) in progress.
+> 
 ## 📋 Project Overview
 This project implements a scalable **Data Lakehouse** on Databricks to process **2.2 million** loan records. It features a complete ETL pipeline using **Medallion Architecture**, a **Gradient Boosted Tree (GBT)** model to predict loan default probability, and a financial simulation demonstrating a improvement in collection recovery efficiency.
 
@@ -17,11 +18,36 @@ This project implements a scalable **Data Lakehouse** on Databricks to process *
 * **Machine Learning:** Spark MLlib (GBT Classifier)
 * **Language:** Python 3.10
 
+---
+
+## 🏗️ Architecture & Pipeline Details
+
+### **1️⃣ Bronze Layer: Raw Ingestion**
+**Goal:** Ingest immutable raw data from the Lending Club dataset (2007–2018) into the Lakehouse.
+* **Source:** Zipped CSV archives uploaded to DBFS (Databricks File System).
+* **Engineering:**
+  * utilized shell commands (`%sh unzip`) to dynamically extract data within the notebook environment.
+  * Ingested **2,260,668 rows** of raw loan data.
+  * Saved as **Delta Tables** to enable ACID transactions and version history.
+* **Notebook:** `01_Bronze_Ingestion.ipynb`
+
+### **2️⃣ Silver Layer: Cleaning & Schema Enforcement**
+**Goal:** Clean data, handle schema mismatches, and prepare high-quality features for machine learning.
+* **Filtering:** Removed "Current" loans to prevent data leakage, keeping only terminal states ("Fully Paid" or "Charged Off"), resulting in **~1.2 million** records.
+* **Resilient Schema Enforcement:** * Addressed schema drift where numeric columns (e.g., `annual_inc`) contained dirty strings.
+  * Implemented PySpark's **`try_cast`** logic to handle bad data gracefully (converting errors to `NULL` instead of crashing the pipeline).
+* **Feature Engineering:**
+  * Converted string-based `term` (e.g., " 36 months") to integer (`36`).
+  * Extracted numeric experience from `emp_length` (e.g., "10+ years" → `10`).
+* **Notebook:** `02_Silver_Cleaning.ipynb`
+  
+---
+
 ## 📂 Upcoming Repository Structure
 The following notebooks and artifacts are being finalized for upload:
 
-* **`01_Bronze_Ingestion.ipynb`**: Raw data ingestion from zipped archives into Delta Tables.
-* **`02_Silver_Cleaning.ipynb`**: Schema enforcement, data cleaning, and feature engineering.
 * **`03_Gold_Modeling.ipynb`**: Training the GBT classifier and evaluating AUC (0.71).
 * **`04_Financial_Simulation.ipynb`**: ROI analysis comparing Random vs. Model-Driven strategies.
 ---
+
+*Created by Anirudh Pentapati | February 2026*
