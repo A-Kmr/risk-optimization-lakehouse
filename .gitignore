@@ -1,0 +1,13 @@
+# Ignore all CSV files (prevents accidental data uploads)
+*.csv
+
+# Ignore Databricks/Jupyter temporary files
+.ipynb_checkpoints/
+
+# Ignore Python environment and cache
+__pycache__/
+.venv/
+.env
+
+# Ignore OS-specific system files
+.DS_Store
