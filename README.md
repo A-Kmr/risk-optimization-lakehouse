@@ -27,7 +27,7 @@ This project implements an **AI-Driven Credit Risk Engine** that:
 ## 📸 Dashboard: The "Command Center"
 *A snapshot of the financial simulation demonstrating the "Banana Curve" (cumulative recovery) and the efficiency gap.*
 
-![Dashboard Screenshot](PASTE_YOUR_SCREENSHOT_LINK_HERE)
+<img width="1870" height="934" alt="image" src="https://github.com/user-attachments/assets/47077e0c-b620-4868-b74f-f54b75e8902a" />
 
 [🔴 **Click Here to Interact with the Live Dashboard**](https://public.tableau.com/app/profile/anirudh.kumar2790/viz/CreditRiskOptimizationEngine-AICommandCenter/Dashboard1?publish=yes)
 
